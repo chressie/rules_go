@@ -52,6 +52,7 @@ def emit_compilepkg(
         gc_goopts = [],
         testfilter = None):  # TODO: remove when test action compiles packages
     """Compiles a complete Go package."""
+    print("compilepkg: %s" % importpath)
     if sources == None:
         fail("sources is a required parameter")
     if out_lib == None:
@@ -67,6 +68,8 @@ def emit_compilepkg(
     args.add_all(sources, before_each = "-src")
     args.add_all(embedsrcs, before_each = "-embedsrc", expand_directories = False)
     if cover and go.coverdata:
+        print(go.coverdata)
+        print(_archive(go.coverdata))
         inputs.append(go.coverdata.data.export_file)
         args.add("-arc", _archive(go.coverdata))
         if go.mode.race:

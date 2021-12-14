@@ -118,7 +118,13 @@ def emit_link(
     arcs.extend(test_archives)
     if (go.coverage_enabled and go.coverdata and
         not any([arc.importmap == go.coverdata.data.importmap for arc in arcs])):
+        print("*****")
+        print("NOT FOUND IN ARCS")
+        print("*****")
+        print(arcs)
+        print(go.coverdata.data)
         arcs.append(go.coverdata.data)
+    print([_format_archive(a) for a in arcs])
     builder_args.add_all(arcs, before_each = "-arc", map_each = _format_archive)
     builder_args.add("-package_list", go.package_list)
 
